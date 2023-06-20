@@ -1,0 +1,60 @@
+{
+  "name": "mck-multiplayer",
+  "version": "1.6.5",
+  "description": "Base multiplayer server",
+  "private": true,
+  "jest": {
+    "verbose": true,
+    "testTimeout": 15000
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env"
+    ],
+    "plugins": [
+      "@babel/plugin-transform-runtime"
+    ]
+  },
+  "main": "./dist/index.js",
+  "dependencies": {
+    "@babel/cli": "^7.13.10",
+    "@babel/core": "^7.13.10",
+    "@babel/preset-env": "^7.13.10",
+    "debug": "^4.3.1",
+    "express": "^4.17.1",
+    "nanoid": "^3.1.22",
+    "nodemon": "^2.0.7",
+    "redis": "^3.0.2",
+    "redis-commands": "^1.7.0",
+    "rimraf": "^3.0.2",
+    "socket.io": "^4.0.1",
+    "socket.io-redis": "^6.1.0"
+  },
+  "scripts": {
+    "lint": "eslint ./lib/**/*.js",
+    "prepublish": "npm run build",
+    "pretranspile": "npm run clean",
+    "transpile": "babel ./lib -d ./dist",
+    "build": "babel ./lib -d ./dist",
+    "prestart": "npm run transpile",
+    "start": "node ./dist",
+    "clean": "rimraf ./dist",
+    "pretest": "docker-compose up -d",
+    "test": "jest -i",
+    "posttest": "docker-compose down",
+    "echo-server": "npx babel-node tests/echo/server.js",
+    "echo-client": "npx babel-node tests/echo/client.js"
+  },
+  "devDependencies": {
+    "@babel/node": "^7.13.10",
+    "@babel/plugin-transform-runtime": "^7.13.10",
+    "babel-jest": "^26.6.3",
+    "eslint": "^7.29.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.23.4",
+    "get-port": "^5.1.1",
+    "jest": "^26.6.3",
+    "socket.io-client": "^4.0.0",
+    "supertest": "^6.1.3"
+  }
+}
